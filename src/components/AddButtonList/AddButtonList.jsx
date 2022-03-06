@@ -9,8 +9,15 @@ import "../AddButtonList/AddButtonList.scss";
 const AddButtonList = ({ colors }) => {
     const [visiblePopup, setVisiblePopup] = useState(false)
     const [selectedColor, setSelectedColor] = useState(colors[0].id)
+    const [inputValue, setInputValue] = useState('')
 
-    console.log(selectedColor)
+    const addList = () => {
+        console.log({
+            "id": 1,
+            "name": "Продажи",
+            "colorId": 5
+          })
+    }
 
     return (
         <div className="add-list">
@@ -31,9 +38,21 @@ const AddButtonList = ({ colors }) => {
             />
             {visiblePopup && <div className="add-list__popup">
                 <img
-                onClick={() => setVisiblePopup(false)}
-                src={CloseSVG} alt="Close Button" className="add-list__popup-close" />
-                <input className="field" type="text" placeholder="Название списка" />
+                    onClick={() => setVisiblePopup(false)}
+                    src={CloseSVG} alt="Close Button" className="add-list__popup-close"
+                />
+                
+                <input 
+                    value={inputValue}
+                    onChange={e => {
+                        console.log(e.target.value)
+                        setInputValue(e.value.target)
+                    }}
+                    className="field" 
+                    type="text" 
+                    placeholder="Название списка" 
+                />
+                
                 <div className="add-list__popup-colors">
                     {
                         colors.map(color => 
@@ -45,7 +64,10 @@ const AddButtonList = ({ colors }) => {
                         />)
                     }
                 </div>
-                <button className="button">Добавить список</button>
+                <button 
+                    onClick={addList} 
+                    className="button">Добавить список
+                </button>
             </div>}
         </div>
     )
