@@ -1,16 +1,24 @@
 import React, {useState} from "react";
 import List from "../List/List";
 import AddButtonList from "../AddButtonList/AddButtonList";
+import Tasks from "../Tasks/Tasks";
 
 import DB from "../../assets/db.json";
 
 import "./Sidebar.scss"
+
 
 const Sidebar = () => {
     const [lists, setLists] = useState(DB.lists.map(item => {
         item.color = DB.colors.filter(color => color.id === item.colorId)[0].name
         return item
     }))
+
+    const onAddList = (obj) => {
+        const newList = [...lists, obj]
+        setLists(newList)
+    }
+
     return (
         <div className="todo">
             <div className="todo__sidebar">
@@ -29,12 +37,16 @@ const Sidebar = () => {
                 />
                 <List
                     items={lists}
+                    onRemove={(item) => alert('!!!')}
                     isRemovable
                 />
-                <AddButtonList colors={DB.colors}/>
+                <AddButtonList 
+                    onAddList={onAddList} 
+                    colors={DB.colors}
+                />
             </div>
             <div className="todo__tasks">
-                
+                <Tasks />
             </div>
         </div>  
     );

@@ -6,17 +6,26 @@ import CloseSVG from "../../assets/images/close.svg";
 
 import "../AddButtonList/AddButtonList.scss";
 
-const AddButtonList = ({ colors }) => {
+const AddButtonList = ({ colors, onAddList }) => {
     const [visiblePopup, setVisiblePopup] = useState(false)
     const [selectedColor, setSelectedColor] = useState(colors[0].id)
     const [inputValue, setInputValue] = useState('')
 
+    const onClose = () => {
+        setVisiblePopup(false)
+        setInputValue('')
+        selectedColor(colors[0].id)
+        onClose()
+    }
+
     const addList = () => {
-        console.log({
-            "id": 1,
-            "name": "Продажи",
-            "colorId": 5
-          })
+        if(!inputValue) {
+            alert('Введите название списка')
+            return
+        }
+        const color = colors.filter(c => c.id === colors)[0].name
+        onAddList({ id: Math.random(), name: inputValue, color })
+        
     }
 
     return (
@@ -32,22 +41,20 @@ const AddButtonList = ({ colors }) => {
                             <path d="M1 8H15" stroke="#b4b4b4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>,
                         name: 'Добавить список',
-                    }
-                        
+                    } 
                 ]}
             />
             {visiblePopup && <div className="add-list__popup">
                 <img
-                    onClick={() => setVisiblePopup(false)}
-                    src={CloseSVG} alt="Close Button" className="add-list__popup-close"
+                    onClick={onClose}
+                    src={CloseSVG} 
+                    alt="Close Button" 
+                    className="add-list__popup-close"
                 />
                 
                 <input 
                     value={inputValue}
-                    onChange={e => {
-                        console.log(e.target.value)
-                        setInputValue(e.value.target)
-                    }}
+                    onChange={e => {setInputValue(e.target.value)}}
                     className="field" 
                     type="text" 
                     placeholder="Название списка" 
