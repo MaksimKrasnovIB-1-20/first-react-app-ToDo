@@ -1,5 +1,6 @@
 import React from "react";
-import Sidebar from "./components/Sidebar/Sidebar.jsx";
+
+import { Sidebar } from "./components/index"
 
 function App() {
   
