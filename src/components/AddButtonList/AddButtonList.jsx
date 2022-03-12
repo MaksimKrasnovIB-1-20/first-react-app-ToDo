@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { List, Badge } from "../index"
+import { List, Badge } from "../index";
 
 import CloseSVG from "../../assets/images/close.svg";
 
@@ -39,6 +39,8 @@ const AddButtonList = ({ colors, onAddList }) => {
             const listObj = {...data, color: { name: color }}
             onAddList(listObj)
             onClose()
+        }).catch(() => {
+            alert('Ошибка при добавлении списка')
         }).finally(() => {
             setIsLoading(false)
         })
@@ -68,15 +70,13 @@ const AddButtonList = ({ colors, onAddList }) => {
                     alt="Close Button" 
                     className="add-list__popup-close"
                 />
-                
                 <input 
                     value={inputValue}
                     onChange={e => {setInputValue(e.target.value)}}
                     className="field" 
                     type="text" 
                     placeholder="Название списка" 
-                />
-                
+                /> 
                 <div className="add-list__popup-colors">
                     {
                         colors.map(color => 

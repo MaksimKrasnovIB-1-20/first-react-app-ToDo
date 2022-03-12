@@ -1,6 +1,4 @@
 .list {
-    $self: &;
-
     margin-bottom: 30px;    
 
     &__add-button {
@@ -15,17 +13,21 @@
         display: flex;
         align-items: center;
         padding: 10px 12px;
+        margin-bottom: 10px;
         cursor: pointer;
+        transition: .5s;
 
-        &:hover #{&self}__remove-icon {
+        &:hover .list__remove-icon {
             opacity: 0.2;
+            transition: 1s;
         }
 
-        #{$self}__remove-icon {
+        .list__remove-icon {
             opacity: 0;
 
             &:hover {
-                opacity: 0.8;
+                opacity: 1;
+                transition: .5s;
             }
         }
 
@@ -51,11 +53,6 @@
         i {
             display: inline-flex;
             margin-right: 10px;
-            // svg {
-            //     path {
-            //         fill: #7c7c7c;
-            //     }
-            // }
         }
     }
 }

@@ -1,4 +1,5 @@
 .tasks {
+
     &__title {
         font-family: Montserrat;
         font-weight: bold;
@@ -11,15 +12,26 @@
         img {
             opacity: 0.2;
             cursor: pointer;
+            transition: .5s;
 
             &:hover {
-                opacity: 0.8;
+                opacity: 1;
             }
         }
     }
 
     &__items {
         margin-top: 30px;
+
+        h2 {
+            font-family: Montserrat;
+            font-weight: bold;
+            font-size: 32px;
+            color: #c9d1d3;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
 
         &-row {
             display: flex;
@@ -36,11 +48,13 @@
     }
 
     .checkbox {
+        
         input {
             display: none;
         }
 
         svg {
+
             path {
                 stroke: #f2f2f2;
             }
@@ -52,6 +66,7 @@
 
             svg {
                 opacity: 1;
+
                 path {
                     stroke: white;
                 }
@@ -59,11 +74,16 @@
         }
 
         &:hover {
+
             label {
                 background-color: #f2f2f2;
                 border-color: #f2f2f2;
+                transition: .5s;
+
                 svg {
                     opacity: 1;
+                    transition: .5s;
+                    
                     path {
                         stroke: #b2b2b2;
                     }
