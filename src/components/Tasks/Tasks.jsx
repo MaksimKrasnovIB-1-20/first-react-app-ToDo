@@ -7,21 +7,19 @@ import EditSVG from "../../assets/images/edit.svg"
 
 import "./Tasks.scss";
 
-const Tasks = ({ list, onEditTitle, onAddTask, withoutEmpty }) => {
+const Tasks = ({ list, onEditTitle, onAddTask, onRemoveTask, onEditTask, onCompleteTask, withoutEmpty }) => {
 
     const editTitle = () => {
         const newTitle = window.prompt('Название списка', list.name)
         if (newTitle) {
             onEditTitle(list.id, newTitle)
-            axios.patch('http://localhost:3001/lists' + list.id, {
+            axios.patch('http://localhost:3001/lists/' + list.id, {
                 name: newTitle
             }).catch(() => {
                 alert('Не удалось обновить название списка')
             })
         }
     }
-
-    
 
     return (
         <div className="tasks">
@@ -32,7 +30,14 @@ const Tasks = ({ list, onEditTitle, onAddTask, withoutEmpty }) => {
                 }
                 {
                     list.tasks && list.tasks.map(task => 
-                        <Task key={task.id} {...task} />
+                        <Task
+                            key={task.id}
+                            list={list}
+                            onEdit={onEditTask}
+                            onRemove={onRemoveTask}
+                            onComplete={onCompleteTask}
+                            {...task}
+                        />
                     )
                 }
                 <AddTaskForm key={list.id} list={list} onAddTask={onAddTask} />

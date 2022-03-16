@@ -11,32 +11,19 @@ const Sidebar = () => {
     const [lists, setLists] = useState(null);
     const [colors, setColors] = useState(null);
     const [activeItem, setActiveItem] = useState(null);
-    
-    // let history = useNavigate()
+
+    // const history = useHistory()
 
     useEffect(() => {
         axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({ data }) => {
             setLists(data);
         });
-        axios.get('http://localhost:3001/colors').then(({ data }) => {
+        axios.get('http://localhost:3001/colors/').then(({ data }) => {
             setColors(data);
         });
     }, []);
 
-    // КОД ИЗ КОММЕНТАРИЕВ
-    // useEffect(() => {
-    //     return history.listen((location) => {
-    //       const listId = history.location.pathname.split('lists/')[1];
-    //       if (lists) {
-    //         const list = lists.find(list => list.id === Number(listId));
-    //         console.log(list)
-    //         setActiveItem(list);
-    //       }
-    //     })
-    //   }, [lists, history])
-    // КОД ИЗ КОММЕНТАРИЕВ
-
-    const onAddList = (obj) => {
+    const onAddList = obj => {
         const newList = [...lists, obj]
         setLists(newList)
     }
@@ -68,7 +55,7 @@ const Sidebar = () => {
             return list
         })
         setLists(newList)
-        axios.patch('http://localhost:3001/tasks' + taskObj.id, { 
+        axios.patch('http://localhost:3001/tasks/' + taskObj.id, { 
             text: newTaskText  
         }).catch(() => {
             alert('Не удалось удалить задачу')
@@ -77,7 +64,7 @@ const Sidebar = () => {
     }
 
     const onRemoveTask = (listId, taskId) => {
-        if(window.confirm('Вы действительно хотите удлаить задачу?')) {
+        if(window.confirm('Вы действительно хотите удалить задачу?')) {
             const newList = lists.map(item => {
                 if(item.id === listId) {
                     item.tasks = item.tasks.filter(task => task.id !== taskId)
@@ -85,7 +72,7 @@ const Sidebar = () => {
                 return item
             })
             setLists(newList)
-            axios.delete('http://localhost:3001/tasks' + taskId, {
+            axios.delete('http://localhost:3001/tasks/' + taskId, {
             }).catch(() => {
                 alert('Не удалось удалить задачу')
             })
@@ -101,6 +88,19 @@ const Sidebar = () => {
         })
         setLists(newList)
     }
+
+// КОД ИЗ КОММЕНТАРИЕВ
+    // useEffect(() => {
+    //     return history.listen((location) => {
+    //       const listId = history.location.pathname.split('lists/')[1];
+    //       if (lists) {
+    //         const list = lists.find(list => list.id === Number(listId));
+    //         console.log(list)
+    //         setActiveItem(list);
+    //       }
+    //     })
+    //   }, [lists, history])
+// КОД ИЗ КОММЕНТАРИЕВ
 
 // НЕ РАБОТАЕТ
     // useEffect(() => {
@@ -144,9 +144,9 @@ const Sidebar = () => {
                                 item.id !== id)
                                 setLists(newLists)
                             }}
-                        onClickItem={list => {      // НЕ РАБОТАЕТ
-                            setActiveItem(list)     // history.push(`/lists/${list.id}`)
-                                                    // НЕ РАБОТАЕТ                    
+                        onClickItem={list => {
+                            setActiveItem(list)
+                            // history.push(`/lists/${list.id}`)                       
                         }}
                         activeItem={activeItem}
                         isRemovable
@@ -159,32 +159,6 @@ const Sidebar = () => {
                 />
             </div>
             <div className="todo__tasks">
-
-{/* НЕ РАБОТАЕТ */}
-                {/* <Route exact path="/" >
-                    {
-                        lists && lists.map(list => (
-                            <Tasks 
-                                list={list}
-                                onAddTask={onAddTask}
-                                onEditTitle={onEditListTitle} 
-                            />
-                        ))
-                    }
-                </Route>
-                <Route path="/lists/:id">
-                {
-                    lists && activeItem && (
-                        <Tasks 
-                            list={activeItem}
-                            onAddTask={onAddTask}
-                            onEditTitle={onEditListTitle}
-                        />
-                    )
-                }
-                </Route> */}
-{/* НЕ РАБОТАЕТ */}
-
                 <Routes>
                     <Route exact path="/" element={
                             lists && lists.map(list => (
@@ -192,22 +166,27 @@ const Sidebar = () => {
                                     key={list.id}
                                     list={list}
                                     onAddTask={onAddTask}
-                                    onEditTitle={onEditListTitle} 
+                                    onEditTitle={onEditListTitle}
+                                    onRemoveTask={onRemoveTask}
+                                    onEditTask={onEditTask}
+                                    // onCompleteTask={onCompleteTask}
                                     withoutEmpty
-                                />
-                            ))
+                                />)
+                            )
                         }
                     ></Route>
                     <Route path="/lists/:id" element={
                         lists && activeItem && (
-                            <Tasks 
+                            <Tasks
                                 list={activeItem}
                                 onAddTask={onAddTask}
                                 onEditTitle={onEditListTitle}
                                 onRemoveTask={onRemoveTask}
                                 onEditTask={onEditTask}
-                            />)
-                        }
+                                // onCompleteTask={onCompleteTask}
+                            />
+                        )
+                    }
                     ></Route>
                 </Routes>
             </div>

@@ -31,7 +31,7 @@
       "id": 1,
       "listId": 2,
       "text": "Изучить JavaScript",
-      "completed": true
+      "completed": false
     },
     {
       "id": 2,
@@ -92,12 +92,6 @@
       "text": "React Router",
       "completed": false,
       "id": 22
-    },
-    {
-      "listId": 6,
-      "text": "test",
-      "completed": false,
-      "id": 23
     }
   ],
   "colors": [

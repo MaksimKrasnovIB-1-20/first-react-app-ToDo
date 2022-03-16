@@ -9,7 +9,7 @@ import "./AddButtonList.scss";
 
 const AddButtonList = ({ colors, onAddList }) => {
     const [visiblePopup, setVisiblePopup] = useState(false)
-    const [selectedColor, setSelectedColor] = useState(3)
+    const [selectedColor, setSelectedColor] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
     const [inputValue, setInputValue] = useState('')
 
@@ -24,8 +24,7 @@ const AddButtonList = ({ colors, onAddList }) => {
     const onClose = () => {
         setVisiblePopup(false)
         setInputValue('')
-        selectedColor(colors[0].id)
-        onClose()
+        setSelectedColor(colors[0].id)
     }
 
     const addList = () => {
@@ -34,7 +33,7 @@ const AddButtonList = ({ colors, onAddList }) => {
             return
         }
         setIsLoading(true)
-        axios.post('http://localhost:3001/lists', { name: inputValue, colorId: setSelectedColor }).then(({ data }) => {
+        axios.post('http://localhost:3001/lists/', { name: inputValue, colorId: selectedColor }).then(({ data }) => {
             const color = colors.filter(c => c.id === colors)[0]
             const listObj = {...data, color, tasks: []}
             onAddList(listObj)
@@ -44,7 +43,6 @@ const AddButtonList = ({ colors, onAddList }) => {
         }).finally(() => {
             setIsLoading(false)
         })
-        
     }
 
     return (

@@ -42,29 +42,28 @@
             align-items: center;
             margin-bottom: 15px;
 
-            &:hover &-actions {
-                opacity: 1;
-            }
-
             &-actions {
                 display: flex;
-                opacity: 0.2;
-                transition: .5s;
-                // transition: opacity 0.15s ease-in-out;
-                
+
                 div {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     width: 32px;
                     height: 32px;
-                    background-color: lighten(#f4f6f8, 2%);
+                    background-color: lighten(#f4f6f8, 5%);
                     border-radius: 6px;
                     margin-left: 5px;
                     cursor: pointer;
+                    transition: .5s;
+
+                    svg {
+                        opacity: 0.2;
+                        transition: .5s;
+                    }
 
                     &:hover {
-                        background-color: darken(#f4f6f8, 2%);
+                        background-color: darken(#f4f6f8, 5%);
 
                         svg {
                             opacity: 0.8;
@@ -89,7 +88,6 @@
         }
 
         svg {
-
             path {
                 stroke: #f2f2f2;
             }
@@ -113,11 +111,9 @@
             label {
                 background-color: #f2f2f2;
                 border-color: #f2f2f2;
-                transition: .5s;
 
                 svg {
                     opacity: 1;
-                    transition: .5s;
                     
                     path {
                         stroke: #b2b2b2;

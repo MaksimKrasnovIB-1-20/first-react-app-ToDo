@@ -24,6 +24,7 @@
 
         .list__remove-icon {
             opacity: 0;
+            transition: .5s;
 
             &:hover {
                 opacity: 1;
