@@ -12,16 +12,16 @@ const Sidebar = () => {
     const [colors, setColors] = useState(null);
     const [activeItem, setActiveItem] = useState(null);
 
-    // const history = useHistory()
+    // const history = useNavigate()
 
     useEffect(() => {
         axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({ data }) => {
-            setLists(data);
-        });
+            setLists(data)
+        })
         axios.get('http://localhost:3001/colors/').then(({ data }) => {
             setColors(data);
-        });
-    }, []);
+        })
+    }, [])
 
     const onAddList = obj => {
         const newList = [...lists, obj]
@@ -58,7 +58,7 @@ const Sidebar = () => {
         axios.patch('http://localhost:3001/tasks/' + taskObj.id, { 
             text: newTaskText  
         }).catch(() => {
-            alert('Не удалось удалить задачу')
+            alert('Не удалось изменить задачу')
         })
         
     }
@@ -161,19 +161,18 @@ const Sidebar = () => {
             <div className="todo__tasks">
                 <Routes>
                     <Route exact path="/" element={
-                            lists && lists.map(list => (
-                                <Tasks
-                                    key={list.id}
-                                    list={list}
-                                    onAddTask={onAddTask}
-                                    onEditTitle={onEditListTitle}
-                                    onRemoveTask={onRemoveTask}
-                                    onEditTask={onEditTask}
-                                    // onCompleteTask={onCompleteTask}
-                                    withoutEmpty
-                                />)
-                            )
-                        }
+                        lists && lists.map(list => (
+                            <Tasks
+                                key={list.id}
+                                list={list}
+                                onAddTask={onAddTask}
+                                onEditTitle={onEditListTitle}
+                                onRemoveTask={onRemoveTask}
+                                onEditTask={onEditTask}
+                                // onCompleteTask={onCompleteTask}
+                                withoutEmpty
+                            />)
+                        )}
                     ></Route>
                     <Route path="/lists/:id" element={
                         lists && activeItem && (
@@ -185,8 +184,7 @@ const Sidebar = () => {
                                 onEditTask={onEditTask}
                                 // onCompleteTask={onCompleteTask}
                             />
-                        )
-                    }
+                        )}
                     ></Route>
                 </Routes>
             </div>

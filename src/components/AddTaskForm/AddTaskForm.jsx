@@ -38,22 +38,24 @@ const AddTaskForm = ({ list, onAddTask }) => {
             {!visibleForm ? (<div onClick={toggleVisibleForm} className="tasks__form-new">
                                 <img src={AddSVG} alt="Add icon" />
                                 <span>Новая задача</span>
-                            </div>) : (<div className="tasks__form-block">
-                                        <input
-                                            value={inputValue}
-                                            className="field" 
-                                            type="text" 
-                                            placeholder="Текст задачи"
-                                            onChange={e => setInputValue(e.target.value)}
-                                        />
-                                        <button 
-                                            disabled={isLoading}
-                                            onClick={addTask} 
-                                            className="button">
-                                            {isLoading ? 'Добавление...' : 'Добавить задачу'}
-                                        </button>
-                                        <button onClick={toggleVisibleForm} className="button button--grey">Отмена</button>
-                                     </div>)
+                            </div>
+                            ) : (
+                            <div className="tasks__form-block">
+                                <input
+                                    value={inputValue}
+                                    className="field" 
+                                    type="text" 
+                                    placeholder="Текст задачи"
+                                    onChange={e => setInputValue(e.target.value)}
+                                />
+                                <button 
+                                    disabled={isLoading}
+                                    onClick={addTask} 
+                                    className="button">
+                                        {isLoading ? 'Добавление...' : 'Добавить задачу'}
+                                </button>
+                                <button onClick={toggleVisibleForm} className="button button--grey">Отмена</button>
+                            </div>)
             }
         </div>
     );

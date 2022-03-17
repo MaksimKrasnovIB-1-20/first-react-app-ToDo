@@ -25,18 +25,23 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
                     <li 
                         key={index} 
                         className={classNames(item.className, { active : item.active ? item.active : activeItem && activeItem.id === item.id })}
-                        onClick={onClickItem ? () => onClickItem(item) : null}
-                    >
+                        onClick={onClickItem ? () => onClickItem(item) : null}>
                         <i>{item.icon ? item.icon : <Badge color={item.color.name} />}</i>
                         <span>{item.name}{item.tasks && ` (${item.tasks.length})`}</span>
-                        {isRemovable && <img 
-                                            className="list__remove-icon" 
-                                            src={RemoveSVG} 
-                                            alt="Remove icon"
-                                            onClick={() => removeList(item)} 
-                                        />}
+                        {
+                            isRemovable 
+                            && 
+                            <div onClick={() => removeList(item)}>
+                                <img 
+                                    className="list__remove-icon" 
+                                    src={RemoveSVG} 
+                                    alt="Remove icon"
+                                />
+                            </div>
+                        }
                     </li>
-                ))}
+                ))
+            }
         </ul>
     );
 }

@@ -4,9 +4,9 @@
     &-new {
         display: flex;
         align-items: center;
-        cursor: pointer;
         opacity: 0.4;
-        transition: .5s;
+        transition: .5s ease-in-out;
+        cursor: pointer;
 
         &:hover {
             opacity: 1;

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Task = ({ id, text, completed, list, onRemove, onEdit, onComplete }) => {
     
-    const onChangeCheckbox = e => {
+    const onChangeCheckbox = (e, list, id) => {
         onComplete(list.id, id, e.target.checked)
     }
     
@@ -21,7 +21,7 @@ const Task = ({ id, text, completed, list, onRemove, onEdit, onComplete }) => {
                     </svg>    
                 </label>
             </div>
-            <input readOnly value={text} />
+            <p>{text}</p>
             <div className="tasks__items-row-actions">
                 <div onClick={() => onEdit(list.id, { id, text })}>
                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
